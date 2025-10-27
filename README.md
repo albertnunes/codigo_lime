@@ -1,83 +1,35 @@
-🧠 Análise de Palavras Decisivas com LIME e DistilBERT no Dataset IMDB
+🔍 Análise de Palavras Decisivas com LIME e DistilBERT
 
-Este projeto aplica Explainable AI (XAI) para identificar quais palavras influenciam mais as decisões de um modelo de linguagem treinado para classificação de sentimentos em textos de avaliações de filmes (dataset IMDB).
-
-O sistema utiliza o DistilBERT fine-tuned no SST-2, aliado à técnica LIME (Local Interpretable Model-Agnostic Explanations), para explicar cada predição e gerar estatísticas agregadas sobre o vocabulário mais determinante para sentimentos positivos e negativos.
+Este projeto identifica as palavras mais influentes na classificação de sentimentos em textos do dataset IMDB, usando DistilBERT fine-tuned e explicações locais com LIME.
 
 🚀 Tecnologias Utilizadas
 
 Python 🐍
 
-PyTorch – execução e inferência do modelo DistilBERT
+PyTorch, Transformers (Hugging Face)
 
-Transformers (Hugging Face) – carregamento do modelo e tokenização
+LIME para interpretabilidade
 
-LIME – geração de explicações locais interpretáveis
+Datasets (Hugging Face)
 
-Datasets (Hugging Face) – carregamento do dataset IMDB
-
-NumPy / JSON / tqdm / regex – processamento, agregação e salvamento de resultados
+NumPy, JSON, regex, tqdm
 
 ⚙️ Etapas Principais
 
-Configuração do Lote de Execução
+Pré-processamento de textos do IMDB
 
-Define número de amostras (num_samples), índice inicial (start_index) e parâmetros do LIME (num_features, num_samples).
+Predição de sentimentos com DistilBERT
 
-Permite processar o dataset IMDB em batches para evitar sobrecarga de memória.
+Explicação de decisões com LIME (palavras que favorecem POSITIVO ou NEGATIVO)
 
-Carregamento do Modelo
+Agregação de estatísticas: score médio, frequência e impacto total por palavra
 
-Utiliza distilbert-base-uncased-finetuned-sst-2-english da Hugging Face.
+Salvamento dos resultados em JSON, incluindo top palavras e exemplos de análises
 
-Classifica textos como POSITIVO ou NEGATIVO.
+📊 Resultados
 
-Processamento das Amostras
+Ranking das 50 palavras mais positivas e 50 mais negativas
 
-Cada texto é limpo minimamente (remoção de espaços múltiplos).
+Estatísticas detalhadas de todas as palavras analisadas
 
-O modelo prediz a classe e a confiança associada.
-
-O LIME explica localmente a decisão do modelo, indicando o impacto de cada palavra.
-
-Agregação e Estatísticas Globais
-
-As palavras mais influentes são agregadas com estatísticas:
-
-mean_score: impacto médio
-
-frequency: número de ocorrências
-
-total_score: influência acumulada
-
-Calcula rankings globais de palavras positivas e negativas.
-
-Exportação de Resultados
-
-Gera um arquivo .json com:
-
-Configurações utilizadas
-
-Palavras mais influentes (Top 50 positivas e negativas)
-
-Estatísticas detalhadas de todas as palavras
-
-Amostras de explicações individuais
-
-📊 Saídas do Sistema
-
-Arquivo JSON (ex: lime_results_batch.json4) contendo:
-
-top_50_positive_words
-
-top_50_negative_words
-
-Estatísticas completas das palavras
-
-Amostras com explicações do LIME
-
-Além disso, o script exibe no console:
-
-As 50 palavras mais positivas e negativas com scores médios, frequências e impacto total.
-
-Estatísticas gerais do processamento (número de amostras e palavras únicas analisadas).
+Amostras explicadas individualmente pelo LIME
